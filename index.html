@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AIR – GHOST SCAN</title>
+</head>
+<body>
+
+<div id="scan-output"></div>
+
+<script src="fin.e.js"></script>
+
+<script>
+const RESPOS = [
+    { ID: 48000, NAME: "AIR", STATUS: "1" },
+    { ID: 12001, NAME: "boerse", STATUS: "0" },
+    { ID: 12002, NAME: "markt3", STATUS: "0" },
+    { ID: 12003, NAME: "HOME", STATUS: "1" },
+    { ID: 12004, NAME: "USE", STATUS: "0" }
+];
+
+RESPOS.forEach(r => {
+    const scan = GHOST_SCAN_REAL(r);
+    document.getElementById("scan-output").innerHTML += `
+        <pre>${JSON.stringify(scan, null, 2)}</pre>
+    `;
+});
+</script>
+
+</body>
+</html>
