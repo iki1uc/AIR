@@ -1,201 +1,328 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<title>TIME 3×11 Scroll + Zoom + Move</title>
+⭐ 1) ROOT‑Regel (Pflicht für jeden neuen RESPO)
+Jeder neue Repo MUSS zuerst:
 
-<style>
-  .toolbar {
-    width: 100%;
-    text-align: center;
-    margin: 10px 0;
-  }
+ID bekommen
 
-  .toolbar button {
-    padding: 6px 12px;
-    margin: 0 4px;
-    font-size: 14px;
-  }
+INDEX bekommen
 
-  .scroll-container {
-    width: 100%;
-    overflow-x: auto;
-    border: 1px solid #444;
-    padding: 10px;
-    box-sizing: border-box;
-    touch-action: pan-x pan-y;
-  }
+ROOT‑Eintrag bekommen
 
-  .zoom-wrapper {
-    transform-origin: top left;
-    transition: transform 0.2s ease;
-  }
+Erst danach darfst du:
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(11, 80px);
-    grid-template-rows: repeat(3, 60px);
-    gap: 6px;
-    width: max-content;
-  }
+Dateien hinzufügen
 
-  .cell {
-    border: 1px solid #444;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: sans-serif;
-    background: #f8f8f8;
-    user-select: none;
-  }
+Funktionen bauen
 
-  .cell.active {
-    outline: 3px solid #0077ff;
-    background: rgba(0,120,255,0.15);
-  }
-</style>
-</head>
+HTML/CSS/JS einfügen
 
-<body>
+API‑Calls machen
 
-<div class="toolbar">
-  <button id="zoomIn">Zoom +</button>
-  <button id="zoomOut">Zoom −</button>
-  <button id="zoomReset">Reset</button>
-</div>
+Systeme koppeln
 
-<div class="scroll-container">
-  <div id="zoomWrapper" class="zoom-wrapper">
-    <div id="grid" class="grid"></div>
-  </div>
-</div>
+Das ist jetzt Pflicht.
 
-<script>
-// ------------------------------------------------------
-// Zoom
-// ------------------------------------------------------
-let zoom = 1;
+⭐ 2) ID‑System (REAL, stabil, endlos)
+Du bekommst ein ID‑System, das nie kollidiert:
 
-function applyZoom(){
-  document.getElementById("zoomWrapper").style.transform = `scale(${zoom})`;
+𝐼
+𝐷
+=
+12000
++
+𝐶
+𝑂
+𝑈
+𝑁
+𝑇
+𝐸
+𝑅
+Beispiel:
+erster neuer Repo → ID 12001
+
+zweiter neuer Repo → ID 12002
+
+dritter neuer Repo → ID 12003
+
+Damit ist jeder neue Repo eindeutig.
+
+⭐ 3) INDEX‑System (NEU = e)
+Du willst:
+
+„alle neue index = e“
+
+Also bekommt jeder neue Repo:
+
+Code
+INDEX = e
+Das bedeutet:
+
+e = neu
+
+e = ungebunden
+
+e = bereit für Routing
+
+e = noch nicht in Cluster integriert
+
+Später kannst du ihn auf:
+
+t = Terminal
+
+s = System
+
+k = Kern
+
+u = User
+
+d = Dir
+
+m = Markt
+
+a = API
+
+umstellen.
+
+Aber NEU = e ist Pflicht.
+
+⭐ 4) MASTER / SLAVE (REAL)
+Jeder neue Repo bekommt:
+
+Code
+MASTER_ID = 1
+SLAVE_ID = ID
+MASTER bleibt IMMER 1.
+Alle neuen Repos sind Slave, bis du sie hochstufst.
+
+⭐ 5) TMP / REAL (REAL)
+Jeder neue Repo bekommt:
+
+Code
+STATUS = TMP
+Erst wenn du ihn fertig hast:
+
+Code
+STATUS = REAL
+Damit bleibt dein System sauber.
+
+⭐ 6) IST / SOLL (REAL)
+Jeder neue Repo bekommt:
+
+Code
+IST = "neu"
+SOLL = "aktiv"
+Später prüfst du:
+
+IST = SOLL → korrekt
+
+IST ≠ SOLL → Fehler
+
+⭐ 7) IST / IST (REAL)
+Jeder neue Repo bekommt:
+
+Code
+IST_IST = "ungleich"
+Erst wenn du ihn mit einem anderen Repo vergleichst:
+
+Code
+IST_IST = "gleich"
+⭐ 8) Vollständiges Template für jeden neuen Repo
+Das ist die Datei, die du in jeden neuen Repo einfügen musst:
+
+Code
+RESPO {
+    ID: ####,
+    INDEX: "e",
+
+    MASTER_ID: 1,
+    SLAVE_ID: ####,
+
+    STATUS: TMP,
+
+    IST: "neu",
+    SOLL: "aktiv",
+    IST_IST: "ungleich",
+
+    ROOT: true
 }
+Du füllst nur ID aus.
+Der Rest ist Pflicht.
 
-document.getElementById("zoomIn").onclick = () => {
-  zoom = Math.min(zoom + 0.1, 3);
-  applyZoom();
-};
+⭐ 9) Jetzt ID + INDEX für deine neuen Repos
+Ich gebe dir SOFORT die korrekten Einträge:
 
-document.getElementById("zoomOut").onclick = () => {
-  zoom = Math.max(zoom - 0.1, 0.3);
-  applyZoom();
-};
-
-document.getElementById("zoomReset").onclick = () => {
-  zoom = 1;
-  applyZoom();
-};
-
-// ------------------------------------------------------
-// Grid Renderer
-// ------------------------------------------------------
-function render3x11(mask){
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-
-  for(let r=1; r<=3; r++){
-    for(let c=1; c<=11; c++){
-      const cell = document.createElement("div");
-      cell.className = "cell";
-      cell.id = `cell-${r}-${c}`;
-
-      const hit = mask.find(s => s.pos[0] === r && s.pos[1] === c);
-
-      if(hit){
-        if(hit.refs) cell.textContent = hit.refs.join(", ");
-        else cell.textContent = hit.ref || "";
-      }
-
-      grid.appendChild(cell);
-    }
-  }
-}
-
-// ------------------------------------------------------
-// Beispielmaske
-// ------------------------------------------------------
-const timeExample = [
-  { pos:[1,4], refs:["M-001"] },
-  { pos:[2,5], refs:["M-017","M-023"], phase:[0.2,0.7] },
-  { pos:[3,2], refs:["M-099"] },
-  { pos:[1,10], refs:["M-777"] }
-];
-
-const mask3x11 = timeExample.map(s => ({
-  pos: s.pos,
-  refs: s.refs || (s.ref ? [s.ref] : ["?"]),
-  phase: s.phase || null
-}));
-
-render3x11(mask3x11);
-
-// ------------------------------------------------------
-// Movement Engine (Auto-Move + Wrap-Around)
-// ------------------------------------------------------
-let active = { r: 1, c: 1 };
-
-function highlightActive(){
-  document.querySelectorAll(".cell").forEach(c => c.classList.remove("active"));
-  const el = document.getElementById(`cell-${active.r}-${active.c}`);
-  if(el) el.classList.add("active");
-}
-
-function move(dir){
-  const rows = 3;
-  const cols = 11;
-
-  if(dir === "left")  active.c = (active.c - 1 + cols) % cols || cols;
-  if(dir === "right") active.c = (active.c % cols) + 1;
-  if(dir === "up")    active.r = (active.r - 1 + rows) % rows || rows;
-  if(dir === "down")  active.r = (active.r % rows) + 1;
-
-  highlightActive();
-}
-
-highlightActive();
-
-// ------------------------------------------------------
-// Keyboard Movement
-// ------------------------------------------------------
-document.addEventListener("keydown", e => {
-  if(e.key === "ArrowLeft")  move("left");
-  if(e.key === "ArrowRight") move("right");
-  if(e.key === "ArrowUp")    move("up");
-  if(e.key === "ArrowDown")  move("down");
-});
-
-// ------------------------------------------------------
-// Touch Swipe Movement
-// ------------------------------------------------------
-let startX = 0, startY = 0;
-
-grid.addEventListener("touchstart", e => {
-  startX = e.touches[0].clientX;
-  startY = e.touches[0].clientY;
-});
-
-grid.addEventListener("touchend", e => {
-  const dx = e.changedTouches[0].clientX - startX;
-  const dy = e.changedTouches[0].clientY - startY;
-
-  if(Math.abs(dx) > Math.abs(dy)){
-    if(dx > 20) move("right");
-    if(dx < -20) move("left");
-  } else {
-    if(dy > 20) move("down");
-    if(dy < -20) move("up");
-  }
-});
-</script>
-
-</body>
-</html>
+⭐ boerse
+Code
+ID: 12001
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12001
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ markt3
+Code
+ID: 12002
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12002
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ HOME
+Code
+ID: 12003
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12003
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ USE
+Code
+ID: 12004
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12004
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ USER
+Code
+ID: 12005
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12005
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ DIR
+Code
+ID: 12006
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12006
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ MIR
+Code
+ID: 12007
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12007
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ EGAL
+Code
+ID: 12008
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12008
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ DOCH
+Code
+ID: 12009
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12009
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ ERROR
+Code
+ID: 12010
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12010
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ HELP
+Code
+ID: 12011
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12011
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ ARG
+Code
+ID: 12012
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12012
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ xARG
+Code
+ID: 12013
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12013
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ API
+Code
+ID: 12014
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12014
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ ANKER
+Code
+ID: 12015
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12015
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
+⭐ multilar
+Code
+ID: 12016
+INDEX: "e"
+MASTER_ID: 1
+SLAVE_ID: 12016
+STATUS: TMP
+IST: "neu"
+SOLL: "aktiv"
+IST_IST: "ungleich"
+ROOT: true
