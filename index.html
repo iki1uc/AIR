@@ -1,30 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <title>AIR – GHOST SCAN</title>
+<meta charset="UTF-8">
+<title>AIR – Signal Transport</title>
+<style>
+  body { background:#111; color:#eee; font-family:Arial; padding:40px; }
+  .box { background:#222; border:1px solid #444; padding:20px; margin-bottom:20px; }
+  h1 { text-align:center; color:#44aaff; }
+</style>
 </head>
+
 <body>
 
-<div id="scan-output"></div>
+<h1>AIR – Signal / Transport</h1>
 
-<script src="fin.e.js"></script>
+<div class="box">
+  <h2>Geometrie: Oktagon</h2>
+  <p>AIR nutzt die 8‑Ecken‑Geometrie für Signal‑Routing.</p>
+</div>
 
-<script>
-const RESPOS = [
-    { ID: 48000, NAME: "AIR", STATUS: "1" },
-    { ID: 12001, NAME: "boerse", STATUS: "0" },
-    { ID: 12002, NAME: "markt3", STATUS: "0" },
-    { ID: 12003, NAME: "HOME", STATUS: "1" },
-    { ID: 12004, NAME: "USE", STATUS: "0" }
-];
+<div class="box">
+  <h2>Frequenz: 741 Hz</h2>
+  <p>Die Reinigungsfrequenz für klare Signalwege.</p>
+</div>
 
-RESPOS.forEach(r => {
-    const scan = GHOST_SCAN_REAL(r);
-    document.getElementById("scan-output").innerHTML += `
-        <pre>${JSON.stringify(scan, null, 2)}</pre>
-    `;
-});
-</script>
+<div class="box">
+  <h2>Signal‑Routing</h2>
+  <pre>
+↗ ↑ ↖
+→   ←
+↘ ↓ ↙
+Oktagon = Signalkörper
+  </pre>
+</div>
 
 </body>
 </html>
