@@ -2,36 +2,81 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>AIR – Signal Transport</title>
+<title>AIR · Aufzugsachse</title>
+
 <style>
-  body { background:#111; color:#eee; font-family:Arial; padding:40px; }
-  .box { background:#222; border:1px solid #444; padding:20px; margin-bottom:20px; }
-  h1 { text-align:center; color:#44aaff; }
+body { background:#000; color:#0f0; font-family:monospace; padding:40px; }
+h1 { color:#6cf; margin-bottom:20px; }
+.section { background:#111; border:1px solid #333; padding:20px; margin-bottom:25px; }
+.title { color:#6cf; font-size:18px; margin-bottom:10px; }
+pre { background:#000; border-left:3px solid #6cf; padding:10px; white-space:pre-wrap; }
 </style>
 </head>
 
 <body>
 
-<h1>AIR – Signal / Transport</h1>
+<h1>AIR · Aufzugsachse</h1>
 
-<div class="box">
-  <h2>Geometrie: Oktagon</h2>
-  <p>AIR nutzt die 8‑Ecken‑Geometrie für Signal‑Routing.</p>
+<div class="section">
+    <div class="title">Modul</div>
+    <pre>
+Typ: Achse
+Modus: Up
+Form: RAW
+    </pre>
 </div>
 
-<div class="box">
-  <h2>Frequenz: 741 Hz</h2>
-  <p>Die Reinigungsfrequenz für klare Signalwege.</p>
+<div class="section">
+    <div class="title">GEO</div>
+    <pre>
+Zustand: GEO-BEREIT
+Sweep: 360° vertikal
+Modus: linear
+    </pre>
 </div>
 
-<div class="box">
-  <h2>Signal‑Routing</h2>
-  <pre>
-↗ ↑ ↖
-→   ←
-↘ ↓ ↙
-Oktagon = Signalkörper
-  </pre>
+<div class="section">
+    <div class="title">Achse</div>
+    <pre>
+up: aktiv
+rot: 0
+linear: 1
+    </pre>
+</div>
+
+<div class="section">
+    <div class="title">Station</div>
+    <pre>
+Name: AIR
+Zustand: aktiv
+Real: gesetzt
+    </pre>
+</div>
+
+<div class="section">
+    <div class="title">Vertikal</div>
+    <pre>
+AIR: Up
+AIV: Down
+    </pre>
+</div>
+
+<div class="section">
+    <div class="title">Komplettum</div>
+    <pre>
+EAR: anchor
+EON: stabilize
+EXP: expand
+AIR: up
+AIV: down
+    </pre>
+</div>
+
+<div class="section">
+    <div class="title">Status</div>
+    <pre>
+Online
+    </pre>
 </div>
 
 </body>
