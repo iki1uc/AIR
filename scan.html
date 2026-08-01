@@ -21,6 +21,8 @@ function GHOST_SCAN_REAL(respo) {
             MISS: respo.MISS ? "FOUND" : "NONE"
         },
 
-        RESULT: respo.STATUS === "0" ? "HELFEN" : "OK"
+        RESULT: respo.STATUS === "0" ? "HELFEN" : "OK",
+
+        AIR_WITZ: respo.AIR_WITZ ?? "max"
     };
 }
