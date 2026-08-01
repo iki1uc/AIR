@@ -1,0 +1,11 @@
+Komplettum.Achsen = {
+    EAR: anchor,
+    EON: stabilize,
+    EXP: expand,
+    AIR: up,
+    AIV: down
+}
+XI  = expand (EXP)
+IX  = anchor (EAR)
+X4  = stabilize (EON)
+Achswechsel = IX → X4 → XI
