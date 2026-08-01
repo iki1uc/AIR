@@ -1,47 +1,16 @@
-Achswechsel = IX → X4 → XI
-XI  = expand (EXP)
-IX  = anchor (EAR)
-X4  = stabilize (EON)
-Komplettum.Achsen = {
-    EAR: anchor,
-    EON: stabilize,
-    EXP: expand,
-    AIR: up,
-    AIV: down
-}
-AIR = up
-AIV = down
+Highway.MODE = "5-Achs"
 
-Vertikalwechsel = AIR ↕ AIV
+Highway.Achsen = {
+    EAR,
+    EON,
+    EXP,
+    AIR,
+    AIV
+}
+
+Highway.Operator = XI
+Highway.Path = "linear"
+
 Slalom.RESPO = 3
 Slalom.Target = 4
 Slalom.Path = EAR → EON → EXP → AIR → AIV
-Highway.MODE = 5-Achs
-Highway.Achsen = { EAR, EON, EXP, AIR, AIV }
-Highway.Operator = XI
-Highway.Path = linear
-AXIOME = {
-    EAR: anchor,
-    EON: stabilize,
-    EXP: expand,
-    AIR: up,
-    AIV: down
-}
-
-OPERATOR = {
-    XI: expand,
-    IX: anchor,
-    X4: stabilize
-}
-
-WECHSEL = {
-    horizontal: IX → X4 → XI,
-    vertical: AIR ↕ AIV
-}
-
-HIGHWAY = {
-    respo: 3,
-    target: 4,
-    mode: 5-Achs,
-    operator: XI
-}
